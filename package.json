@@ -1,6 +1,6 @@
 {
   "name": "fastest-express-validator",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "request validation middleware for express",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -11,7 +11,13 @@
     "type": "git",
     "url": "git+https://github.com/muturgan/fastest-express-validator.git"
   },
-  "keywords": [],
+  "keywords": [
+    "express",
+    "validation",
+    "validators",
+    "validate",
+    "schema"
+  ],
   "author": "Andrey Sakharov <caxap_8787@mail.ru>",
   "license": "MIT",
   "bugs": {
