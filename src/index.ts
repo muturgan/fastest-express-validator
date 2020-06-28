@@ -33,6 +33,7 @@ export const DefaultRequestValidator = <B = any, P = any, Q = any>(schemas: {bod
 
          if (Object.keys(errors).length > 0) {
             res.status(422).send(errors);
+            return;
          }
 
          next();
@@ -62,6 +63,7 @@ export const RequestValidator = <B = any, P = any, Q = any>(schemas: {body?: Val
 
          if (errors.length > 0) {
             next(errors);
+            return;
          }
 
          next();
