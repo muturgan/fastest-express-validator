@@ -1,0 +1,39 @@
+{
+  "extends": "tslint:latest",
+  "rules": {
+    "variable-name": {
+      "options": [
+        "allow-leading-underscore",
+        "allow-snake-case",
+        "allow-pascal-case"
+      ]
+    },
+    "ordered-imports": [false],
+    "no-implicit-dependencies": false,
+    "no-consecutive-blank-lines": false,
+    "no-console": [true, "log"],
+    "one-line": false,
+    "max-classes-per-file": false,
+    "only-arrow-functions": false,
+    "object-literal-shorthand": false,
+    "object-literal-sort-keys": false,
+    "max-line-length": false,
+    "no-string-literal": false,
+    "no-bitwise": false,
+    "member-ordering": false,
+    "no-var-requires": false,
+    "indent": false,
+    "forin": false,
+    "arrow-parens": false,
+    "prefer-conditional-expression": false,
+    "prefer-for-of": false,
+    "quotemark": [true, "single", "jsx-double"],
+    "semicolon": [true, "always"],
+    "curly": true,
+    "trailing-comma": [true, {"multiline": "always", "singleline": "never"}],
+    "array-type": [true, "array-simple"],
+    "no-submodule-imports": [true, "rxjs"],
+    "interface-name": [true, "always-prefix"],
+    "member-access": [true, "check-accessor", "check-parameter-property"]
+  }
+}
