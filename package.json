@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "request validation middleware for express",
   "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "scripts": {
     "build": "rimraf dist && tsc"
   },
