@@ -9,11 +9,12 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
-    "noUnusedLocals": false,
+    "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitAny": false,
     "noImplicitThis": true,
     "resolveJsonModule": true,
+    "declaration": true,
     "lib": [
       "esnext",
       "dom",

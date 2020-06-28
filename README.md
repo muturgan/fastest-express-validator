@@ -1,2 +1,2 @@
-# my-project-template
-template for new projects
+# fastest-express-validator
+request validation middleware for express
