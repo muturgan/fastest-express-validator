@@ -50,18 +50,18 @@ export const RequestValidator = <B = any, P = any, Q = any>(schemas: {body?: Val
    return (req, _res, next): void =>
    {
       try {
-         let errors: ValidationError[] = [];
+         const errors: {body?: ValidationError[], params?: ValidationError[], query?: ValidationError[]} = {};
 
          for (const key in schemas) {
             if (Boolean(schemas[key]) === true) {
                const result = v.validate(req[key], schemas[key]);
                if (result !== true) {
-                  errors = errors.concat(result);
+                  errors[key] = result;
                }
             }
          }
 
-         if (errors.length > 0) {
+         if (Object.keys(errors).length > 0) {
             next(errors);
             return;
          }
