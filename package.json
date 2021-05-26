@@ -27,6 +27,7 @@
     "url": "https://github.com/muturgan/fastest-express-validator/issues"
   },
   "homepage": "https://github.com/muturgan/fastest-express-validator#readme",
+  "files": ["dist"],
   "dependencies": {
     "fastest-validator": "^1.11.0"
   },
