@@ -7,6 +7,9 @@
   "scripts": {
     "build": "(rm -rf dist || rimraf dist) && tsc"
   },
+  "engines": {
+    "node": ">=10.3.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/muturgan/fastest-express-validator.git"

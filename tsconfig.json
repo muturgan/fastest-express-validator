@@ -3,7 +3,7 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
-    "target": "es6",
+    "target": "ES2018",
     "moduleResolution": "node",
     "module": "commonjs",
     "experimentalDecorators": true,
