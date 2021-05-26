@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "build": "rimraf dist && tsc"
+    "build": "(rm -rf dist || rimraf dist) && tsc"
   },
   "repository": {
     "type": "git",
