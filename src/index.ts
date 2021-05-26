@@ -1,15 +1,14 @@
-import type { RequestHandler } from 'express';
-import Validator, { ValidationSchema, ValidationError } from 'fastest-validator';
+import { RequestHandler } from 'express';
+import Validator, { ValidationSchema, ValidationError, SyncCheckFunction, AsyncCheckFunction } from 'fastest-validator';
 export { ValidationError } from 'fastest-validator';
 
-type TValidationResult = true | ValidationError[];
-type TCheckFunc = (value: any) => TValidationResult;
+type TCheckFunc = SyncCheckFunction | AsyncCheckFunction
 
 
 const v = new Validator();
 
 
-export const DefaultRequestValidator = <B = any, P = any, Q = any>(schemas: {body?: ValidationSchema<B>, params?: ValidationSchema<P>, query?: ValidationSchema<Q>}): RequestHandler =>
+export const DefaultRequestValidator = <B = any, Q = any, P = any, >(schemas: {body?: ValidationSchema<B>, query?: ValidationSchema<Q>, params?: ValidationSchema<P>}): RequestHandler =>
 {
    const {params, ...restSchemas} = schemas;
 
@@ -27,11 +26,11 @@ export const DefaultRequestValidator = <B = any, P = any, Q = any>(schemas: {bod
       }
    }
 
-   return (req, res, next): void =>
+   return async (req, res, next): Promise<void> =>
    {
       try {
          if (paramsCheckFunc !== null) {
-            const paramsValidationResult = paramsCheckFunc(req.params);
+            const paramsValidationResult = await paramsCheckFunc(req.params);
             if (paramsValidationResult !== true) {
                res.sendStatus(404);
                return;
@@ -40,12 +39,12 @@ export const DefaultRequestValidator = <B = any, P = any, Q = any>(schemas: {bod
 
          const errors: {body?: ValidationError[], query?: ValidationError[]} = {};
 
-         restCheckFuncs.forEach(({key, checkFunc}) => {
-            const result = checkFunc(req[key]);
+         for (const {key, checkFunc} of restCheckFuncs) {
+            const result = await checkFunc(req[key]);
             if (result !== true) {
                errors[key] = result;
             }
-         });
+         }
 
          if (Object.keys(errors).length > 0) {
             res.status(422).send(errors);
@@ -61,7 +60,7 @@ export const DefaultRequestValidator = <B = any, P = any, Q = any>(schemas: {bod
 };
 
 
-export const RequestValidator = <B = any, P = any, Q = any>(schemas: {body?: ValidationSchema<B>, params?: ValidationSchema<P>, query?: ValidationSchema<Q>}): RequestHandler =>
+export const RequestValidator = <B = any, Q = any, P = any>(schemas: {body?: ValidationSchema<B>, query?: ValidationSchema<Q>, params?: ValidationSchema<P>}): RequestHandler =>
 {
    const checkFuncs: Array<{key: string, checkFunc: TCheckFunc}> = [];
 
@@ -74,17 +73,17 @@ export const RequestValidator = <B = any, P = any, Q = any>(schemas: {body?: Val
       }
    }
 
-   return (req, _res, next): void =>
+   return async (req, _res, next): Promise<void> =>
    {
       try {
          const errors: {body?: ValidationError[], params?: ValidationError[], query?: ValidationError[]} = {};
 
-         checkFuncs.forEach(({key, checkFunc}) => {
-            const result = checkFunc(req[key]);
+         for (const {key, checkFunc} of checkFuncs) {
+            const result = await checkFunc(req[key]);
             if (result !== true) {
                errors[key] = result;
             }
-         });
+         }
 
          if (Object.keys(errors).length > 0) {
             next(errors);
