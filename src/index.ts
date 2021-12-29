@@ -2,7 +2,7 @@ import { RequestHandler } from 'express';
 import Validator, { ValidationSchema, ValidationError, SyncCheckFunction, AsyncCheckFunction } from 'fastest-validator';
 export { ValidationError } from 'fastest-validator';
 
-type TCheckFunc = SyncCheckFunction | AsyncCheckFunction
+type TCheckFunc = SyncCheckFunction | AsyncCheckFunction;
 
 
 const v = new Validator();
