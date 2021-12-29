@@ -1,6 +1,6 @@
 {
   "name": "fastest-express-validator",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "request validation middleware for express",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -29,7 +29,9 @@
     "url": "https://github.com/muturgan/fastest-express-validator/issues"
   },
   "homepage": "https://github.com/muturgan/fastest-express-validator#readme",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "fastest-validator": "^1.12.0"
   },
