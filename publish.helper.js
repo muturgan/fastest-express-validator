@@ -8,6 +8,6 @@ const publishedVersionsStr = execSync(`npm view ${packageJson.name} versions`)
 
 const isPublished = publishedVersionsStr.includes(`'${packageJson.version}'`);
 
-if (isPublished !== true) {
-  execSync(`npm publish`);
+if (isPublished === true) {
+  throw new Error('not need to publish');
 }

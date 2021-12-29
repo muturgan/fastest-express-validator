@@ -18,6 +18,9 @@ jobs:
         node-version: 14
         registry-url: https://registry.npmjs.org/
 
+    - name: Check published versions
+      run: node publish.helper.js
+
     - name: Remove a dist folder from gitignore
       run: sed -i '$ d' .gitignore
 
@@ -28,6 +31,6 @@ jobs:
       run: npm run build
 
     - name: Publish
-      run: node publish.helper.js
+      run: npm publish
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
