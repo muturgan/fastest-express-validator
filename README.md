@@ -30,7 +30,7 @@ app.use((err, req, res, next) => {
     console.error(err);
     res.status(500).send('Something broke!');
 });
-   
+
 app.listen(3000, () => console.log('check it on http://localhost:3000?name=one'));
 ```
 
