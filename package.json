@@ -23,7 +23,7 @@
     "validate",
     "schema"
   ],
-  "author": "Andrey Sakharov <caxap_8787@mail.ru>",
+  "author": "Andrey Sakharov <caxap_8787@mail.ru> (https://www.linkedin.com/in/andrey-sakharov/)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/muturgan/fastest-express-validator/issues"
