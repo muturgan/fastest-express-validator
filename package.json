@@ -2,15 +2,17 @@
   "name": "fastest-express-validator",
   "version": "1.2.2",
   "description": "request validation middleware for express",
+  "author": "Andrey Sakharov <caxap_8787@mail.ru> (https://www.linkedin.com/in/andrey-sakharov/)",
+  "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
+  "engines": {
+    "node": ">=14.18.2"
+  },
   "scripts": {
     "build": "(rm -rf dist || npx rimraf dist) && tsc",
     "lint": "tslint 'src/**/*.ts'",
     "prepare": "husky install"
-  },
-  "engines": {
-    "node": ">=14.18.2"
   },
   "repository": {
     "type": "git",
@@ -23,8 +25,6 @@
     "validate",
     "schema"
   ],
-  "author": "Andrey Sakharov <caxap_8787@mail.ru> (https://www.linkedin.com/in/andrey-sakharov/)",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/muturgan/fastest-express-validator/issues"
   },
