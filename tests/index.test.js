@@ -101,7 +101,7 @@ const server = app.listen(TEST_PORT, async () =>
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({name: 5}),
+          body: JSON.stringify({name: 'xxx'}),
         });
         for await (const _ of body) {
           // force consumption of body for a memory leak preventing
