@@ -19,7 +19,7 @@ jobs:
         registry-url: https://registry.npmjs.org/
 
     - name: Check published versions
-      run: node publish.helper.cjs
+      run: node tools/publish.helper.cjs
 
     - name: Remove a dist folder from gitignore
       run: sed -i '$ d' .gitignore
@@ -32,6 +32,9 @@ jobs:
 
     - name: Test
       run: npm run test
+
+    - name: Check coverage
+      run: npm run check_coverage
 
     - name: Publish
       run: npm publish
