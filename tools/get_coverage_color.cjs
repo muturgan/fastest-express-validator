@@ -13,4 +13,4 @@ if (coverage <= 60) {
     coverageColor = 'red';
 }
 
-coverageColor;
+console.log(coverageColor);
