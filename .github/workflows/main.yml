@@ -37,7 +37,7 @@ jobs:
     #     echo $COVERAGE >> $GITHUB_ENV
 
     - name: Get Coverage for badge
-      run: echo $GITHUB_ENV
+      run: cat $GITHUB_ENV
 
     # - name: Create Coverage Badge
     #   uses: schneegans/dynamic-badges-action@v1.0.0
