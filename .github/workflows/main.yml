@@ -50,7 +50,10 @@ jobs:
       run: npm run check_coverage
 
     - name: Check published versions
-      run: echo "NEED_PUBLISH=$(node tools/publish.helper.cjs)" >> $GITHUB_ENV
+      run: |
+        echo "NEED_PUBLISH=$(node tools/publish.helper.cjs)" >> $GITHUB_ENV
+        echo env.NEED_PUBLISH
+        cat $GITHUB_ENV
 
     - if: ${{ env.NEED_PUBLISH == 'true' }}
       name: Publish
