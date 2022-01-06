@@ -36,16 +36,19 @@ jobs:
         echo $GITHUB_ENV
         echo $COVERAGE >> $GITHUB_ENV
 
-    - name: Create Coverage Badge
-      uses: schneegans/dynamic-badges-action@v1.0.0
-      with:
-        auth: ${{ secrets.GIST_SECRET }}
-        gistID: ${{ secrets.GIST_ID }}
-        filename: fastest-express-validator.json
-        label: Test Coverage
-        message: ${{ env.COVERAGE }}
-        color: green
-        namedLogo: codecov
+    - name: Get Coverage for badge
+      run: echo $GITHUB_ENV
+
+    # - name: Create Coverage Badge
+    #   uses: schneegans/dynamic-badges-action@v1.0.0
+    #   with:
+    #     auth: ${{ secrets.GIST_SECRET }}
+    #     gistID: ${{ secrets.GIST_ID }}
+    #     filename: fastest-express-validator.json
+    #     label: Test Coverage
+    #     message: ${{ env.COVERAGE }}
+    #     color: green
+    #     namedLogo: codecov
 
     - name: Check coverage
       run: npm run check_coverage
