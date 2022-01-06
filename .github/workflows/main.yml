@@ -33,6 +33,7 @@ jobs:
     - name: Get Coverage for badge
       run: |
         COVERAGE=$( node -pe 'JSON.parse(process.argv[1]).total.branches.pct + "%"' "$(cat coverage/coverage-summary.json)" )
+        echo $GITHUB_ENV
         echo $COVERAGE >> $GITHUB_ENV
 
     - name: Create Coverage Badge
