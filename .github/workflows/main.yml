@@ -41,10 +41,10 @@ jobs:
         auth: ${{ secrets.GIST_SECRET }}
         gistID: ${{ secrets.GIST_ID }}
         filename: fev_coverage.json
-        label: Test Coverage
+        label: coverage
         message: ${{ env.COVERAGE }}
         color: ${{ env.COVERAGE_COLOR }}
-        namedLogo: codecov
+        namedLogo: mocha
 
     - name: Check coverage
       run: npm run check_coverage
