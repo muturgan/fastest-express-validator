@@ -31,17 +31,19 @@ jobs:
       run: npm run test
 
     - name: Calculate Coverage
-      run: echo "COVERAGE=$(node -pe 'JSON.parse(process.argv[1]).total.branches.pct + "%"' "$(cat coverage/coverage-summary.json)")" >> $GITHUB_ENV
+      run: |
+        echo "COVERAGE=$(node -pe 'JSON.parse(process.argv[1]).total.branches.pct + "%"' "$(cat coverage/coverage-summary.json)")" >> $GITHUB_ENV
+        echo "COVERAGE_COLOR=$(node tools/get_coverage_color.cjs)" >> $GITHUB_ENV
 
     - name: Create Coverage Badge
       uses: schneegans/dynamic-badges-action@v1.0.0
       with:
         auth: ${{ secrets.GIST_SECRET }}
         gistID: ${{ secrets.GIST_ID }}
-        filename: fastest-express-validator.json
+        filename: fev_coverage.json
         label: Test Coverage
         message: ${{ env.COVERAGE }}
-        color: green
+        color: ${{ env.COVERAGE_COLOR }}
         namedLogo: codecov
 
     - name: Check coverage

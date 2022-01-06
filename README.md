@@ -1,5 +1,5 @@
 # fastest-express-validator
-![Coverage Badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/muturgan/c7b1c29d6e20c66c9c38971617b3865c/raw/fastest-express-validator.json)
+![Coverage Badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/muturgan/c7b1c29d6e20c66c9c38971617b3865c/raw/fev_coverage.json)
 
 request validation middleware for [express][express]
 based on [fastest-validator][fastest-validator]

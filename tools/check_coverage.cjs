@@ -8,6 +8,7 @@ const coverageInfo = require(COVERAGE_INFO_PATH);
 if (
         coverageInfo.total.statements.pct < MIN_COVERAGE_PERCENT
     ||  coverageInfo.total.functions.pct  < MIN_COVERAGE_PERCENT
+    ||  coverageInfo.total.branches.pct   < MIN_COVERAGE_PERCENT
 ) {
     throw new Error('code coverage is low');
 }
