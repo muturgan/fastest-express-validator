@@ -133,7 +133,7 @@ const server = app.listen(TEST_PORT, async () =>
     {
       describe('QUERY (default)', () =>
       {
-        it('missing a required query param', async () => {
+        it('missing a required query param (default)', async () => {
           const {statusCode, body} = await fetch(`http://localhost:${TEST_PORT}/default/query`);
           const parsedBody = await body.json();
 
