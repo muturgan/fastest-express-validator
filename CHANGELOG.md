@@ -1,5 +1,11 @@
 # Changelog
 
+### 1.4.2
+
+#### Fixed
+
+- using a cjs extension again
+
 ### 1.4.1
 
 #### Fixed

@@ -2,7 +2,7 @@ exports.appFactory = (schema) =>
 {
   const express = require('express');
   const app = express();
-  const { RequestValidator, DefaultRequestValidator } = require('../../dist');
+  const { RequestValidator, DefaultRequestValidator } = require('../../dist/index.cjs');
 
   app.use(express.json());
 
