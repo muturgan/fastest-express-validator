@@ -4,7 +4,7 @@ export { ValidationError } from 'fastest-validator';
 
 type TCheckFunc = SyncCheckFunction | AsyncCheckFunction;
 
-export interface IRequestValidationSchema<B = any, Q = any, P = any, > {
+export interface IRequestValidationSchema<B extends Record<string, unknown> = {}, Q extends Record<string, string> = {}, P extends Record<string, string> = {}, > {
    body?: ValidationSchema<B>;
    query?: ValidationSchema<Q>;
    params?: ValidationSchema<P>;
@@ -16,15 +16,15 @@ export interface IRequestValidationError {
    query?: ValidationError[];
 }
 
-export type TValidationErrorHandler = (errors: IRequestValidationError, req: Request, res: Response, next: NextFunction) => void | Promise<void>;
+export type TValidationErrorHandler<B extends Record<string, unknown> = {}, Q extends Record<string, string> = {}, P extends Record<string, string> = {}, ResBody = any, L extends Record<string, unknown> = {}> = (errors: IRequestValidationError, req: Request<P, ResBody, B, Q, L>, res: Response<ResBody, L>, next: NextFunction) => void | Promise<void>;
 
-export type TRequestValidator<B = any, Q = any, P = any> = (schemas: IRequestValidationSchema<B, Q, P>, errorHandler?: TValidationErrorHandler | null) => RequestHandler;
+export type TRequestValidator<B extends Record<string, unknown> = {}, Q extends Record<string, string> = {}, P extends Record<string, string> = {}, ResBody = any, L extends Record<string, unknown> = {}> = (schemas: IRequestValidationSchema<B, Q, P>, errorHandler?: TValidationErrorHandler<B, Q, P, ResBody, L> | null) => RequestHandler<P, ResBody, B, Q, L>;
 
 
 const v = new Validator();
 
 
-export const RequestValidator = <B = any, Q = any, P = any>(schemas: IRequestValidationSchema<B, Q, P>, errorHandler?: TValidationErrorHandler | null): RequestHandler =>
+export const RequestValidator = <B extends Record<string, unknown> = {}, Q extends Record<string, string> = {}, P extends Record<string, string> = {}, ResBody = any, L extends Record<string, unknown> = {}>(schemas: IRequestValidationSchema<B, Q, P>, errorHandler?: TValidationErrorHandler<B, Q, P, ResBody, L> | null): RequestHandler<P, ResBody, B, Q, L> =>
 {
    const checkFuncs: Array<{key: string, checkFunc: TCheckFunc}> = [];
 
@@ -92,6 +92,6 @@ const defaultRequestValidatorHandler: TValidationErrorHandler = (mayBeErrors, _r
 };
 
 
-export const DefaultRequestValidator = <B = any, Q = any, P = any>(schemas: IRequestValidationSchema<B, Q, P>) => {
+export const DefaultRequestValidator = <B extends Record<string, unknown> = {}, Q extends Record<string, string> = {}, P extends Record<string, string> = {}, ResBody = any, L extends Record<string, unknown> = {}>(schemas: IRequestValidationSchema<B, Q, P>): RequestHandler<P, ResBody, B, Q, L> => {
    return RequestValidator(schemas, defaultRequestValidatorHandler);
 };

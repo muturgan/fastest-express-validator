@@ -1,5 +1,11 @@
 # Changelog
 
+### 1.5.0
+
+#### Added
+
+- typings extended
+
 ### 1.4.2
 
 #### Fixed
