@@ -20,7 +20,7 @@
     "build_cjs": "tsc -p tsconfig.json && mv dist/index.js dist/index.cjs",
     "build_es6": "tsc -p tsconfig.es6.json && mv dist/es6/index.js dist/es6/index.mjs",
     "lint": "tslint 'src/**/*.ts'",
-    "just_test": "mocha -t 10000 tests/**/*.test.js",
+    "just_test": "mocha -t 10000 dist/tests/**/*.test.js",
     "calculate_coverage": "nyc --include=dist/**/*.cjs --reporter=json-summary --reporter=text --reporter=text-summary",
     "check_coverage": "node tools/check_coverage.cjs",
     "test": "npm run calculate_coverage npm run just_test",
@@ -42,14 +42,16 @@
   },
   "homepage": "https://github.com/muturgan/fastest-express-validator#readme",
   "files": [
-    "dist"
+    "dist",
+    "!dist/tests/*"
   ],
   "dependencies": {
     "fastest-validator": "^1.12.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
-    "@types/node": "^14.18.5",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "^16.11.19",
     "express": "^4.17.2",
     "husky": "^7.0.4",
     "mocha": "^9.1.3",
