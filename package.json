@@ -1,14 +1,14 @@
 {
   "name": "fastest-express-validator",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "request validation middleware for express",
   "author": "Andrey Sakharov <caxap_8787@mail.ru> (https://www.linkedin.com/in/andrey-sakharov/)",
   "license": "MIT",
-  "main": "dist/index.cjs",
+  "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "exports": {
     ".": {
-      "require": "./dist/index.cjs",
+      "require": "./dist/index.js",
       "import": "./dist/es6/index.mjs"
     }
   },
@@ -17,7 +17,7 @@
   },
   "scripts": {
     "build": "npm run build_cjs && npm run build_es6",
-    "build_cjs": "(rm -rf dist || npx rimraf dist) && tsc && mv dist/index.js dist/index.cjs",
+    "build_cjs": "(rm -rf dist || npx rimraf dist) && tsc",
     "build_es6": "tsc -p tsconfig.es6.json && mv dist/es6/index.js dist/es6/index.mjs",
     "lint": "tslint 'src/**/*.ts'",
     "just_test": "mocha -t 10000 tests/**/*.test.js",
