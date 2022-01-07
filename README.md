@@ -54,9 +54,9 @@ app.get('/custom', middlewareWithCustomHandler, (req, res) => {
 });
 
 app.get('/short', shortQueryMiddleware, (req, res) => {
-    console.log('a query object at the custom route is:');
+    console.log('a query object at the short route is:');
     console.log(req.query);
-    res.send('Hello Custom');
+    res.send('Hello Short');
 });
 
 app.use((err, req, res, next) => {
