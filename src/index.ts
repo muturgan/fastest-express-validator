@@ -16,7 +16,22 @@ export interface IRequestValidationError {
    query?: ValidationError[];
 }
 
+export interface IBodyValidationError {
+   body: ValidationError[];
+}
+
+export interface IQueryValidationError {
+   query: ValidationError[];
+}
+
+export interface IParamsValidationError {
+   params: ValidationError[];
+}
+
 export type TValidationErrorHandler<B extends Record<string, unknown> = {}, Q extends Record<string, string> = {}, P extends Record<string, string> = {}, ResBody = any, L extends Record<string, unknown> = {}> = (errors: IRequestValidationError, req: Request<P, ResBody, B, Q, L>, res: Response<ResBody, L>, next: NextFunction) => void | Promise<void>;
+export type TBodyValidationErrorHandler<B extends Record<string, unknown>  = {}, ResBody = any, L extends Record<string, unknown> = {}> = TValidationErrorHandler<B, {}, {}, ResBody, L>;
+export type TQueryValidationErrorHandler<Q extends Record<string, string>  = {}, ResBody = any, L extends Record<string, unknown> = {}> = TValidationErrorHandler<{}, Q, {}, ResBody, L>;
+export type TParamsValidationErrorHandler<P extends Record<string, string> = {}, ResBody = any, L extends Record<string, unknown> = {}> = TValidationErrorHandler<{}, {}, P, ResBody, L>;
 
 export type TRequestValidator<B extends Record<string, unknown> = {}, Q extends Record<string, string> = {}, P extends Record<string, string> = {}, ResBody = any, L extends Record<string, unknown> = {}> = (schemas: IRequestValidationSchema<B, Q, P>, errorHandler?: TValidationErrorHandler<B, Q, P, ResBody, L> | null) => RequestHandler<P, ResBody, B, Q, L>;
 
@@ -89,6 +104,97 @@ const defaultRequestValidatorHandler: TValidationErrorHandler = (mayBeErrors, _r
    }
 
    next(mayBeErrors);
+};
+
+
+
+export const BodyValidator = <B extends Record<string, unknown> = {}, ResBody = any, L extends Record<string, unknown> = {}>(schema: ValidationSchema<B>, errorHandler?: TBodyValidationErrorHandler<B, ResBody, L> | null): RequestHandler<{}, ResBody, B, {}, L> =>
+{
+   const checkFunc: TCheckFunc = v.compile(schema);
+
+   return async (req, res, next): Promise<void> =>
+   {
+      try {
+         const result = await checkFunc(req.body);
+         if (result !== true) {
+            const errors: IBodyValidationError = {
+               body: result,
+            };
+
+            if (typeof errorHandler === 'function') {
+               errorHandler(errors, req, res, next);
+            } else {
+               next(errors);
+            }
+            return;
+         }
+
+         next();
+
+      } catch (err) {
+         next(err);
+      }
+   };
+};
+
+
+export const QueryValidator = <Q extends Record<string, string> = {}, ResBody = any, L extends Record<string, unknown> = {}>(schema: ValidationSchema<Q>, errorHandler?: TQueryValidationErrorHandler<Q, ResBody, L> | null): RequestHandler<{}, ResBody, {}, Q, L> =>
+{
+   const checkFunc: TCheckFunc = v.compile(schema);
+
+   return async (req, res, next): Promise<void> =>
+   {
+      try {
+         const result = await checkFunc(req.query);
+         if (result !== true) {
+            const errors: IQueryValidationError = {
+               query: result,
+            };
+
+            if (typeof errorHandler === 'function') {
+               errorHandler(errors, req, res, next);
+            } else {
+               next(errors);
+            }
+            return;
+         }
+
+         next();
+
+      } catch (err) {
+         next(err);
+      }
+   };
+};
+
+
+export const ParamsValidator = <P extends Record<string, string> = {}, ResBody = any, L extends Record<string, unknown> = {}>(schema: ValidationSchema<P>, errorHandler?: TParamsValidationErrorHandler<P, ResBody, L> | null): RequestHandler<P, ResBody, {}, {}, L> =>
+{
+   const checkFunc: TCheckFunc = v.compile(schema);
+
+   return async (req, res, next): Promise<void> =>
+   {
+      try {
+         const result = await checkFunc(req.params);
+         if (result !== true) {
+            const errors: IParamsValidationError = {
+               params: result,
+            };
+
+            if (typeof errorHandler === 'function') {
+               errorHandler(errors, req, res, next);
+            } else {
+               next(errors);
+            }
+            return;
+         }
+
+         next();
+
+      } catch (err) {
+         next(err);
+      }
+   };
 };
 
 

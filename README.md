@@ -13,7 +13,7 @@ based on [fastest-validator][fastest-validator]
 ## Example
 ``` js
 const app = require('express')();
-const { RequestValidator } = require('fastest-express-validator');
+const { RequestValidator, QueryValidator } = require('fastest-express-validator');
 
 const querySchema = {
     name: { type: "string", min: 3, max: 255 },
@@ -35,6 +35,12 @@ const middlewareWithCustomHandler = RequestValidator(
     customErrorHandler,
 );
 
+// also this package provides BodyValidator and ParamsValidator short validators
+const shortQueryMiddleware = QueryValidator(
+    querySchema,
+    // also you can pass a custom error handler in a second argument
+);
+
 app.get('/', validationMiddleware, (req, res) => {
     console.log('a query object is:');
     console.log(req.query);
@@ -42,6 +48,12 @@ app.get('/', validationMiddleware, (req, res) => {
 });
 
 app.get('/custom', middlewareWithCustomHandler, (req, res) => {
+    console.log('a query object at the custom route is:');
+    console.log(req.query);
+    res.send('Hello Custom');
+});
+
+app.get('/short', shortQueryMiddleware, (req, res) => {
     console.log('a query object at the custom route is:');
     console.log(req.query);
     res.send('Hello Custom');

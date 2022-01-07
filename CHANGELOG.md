@@ -1,5 +1,11 @@
 # Changelog
 
+### 1.6.0
+
+#### Added
+
+- short alias validators were added: **BodyValidator**, **QueryValidator**, **ParamsValidator**
+
 ### 1.5.0
 
 #### Added
