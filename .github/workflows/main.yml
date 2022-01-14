@@ -22,7 +22,14 @@ jobs:
       run: sed -i '$ d' .gitignore
 
     - name: REF
-      run: echo $GITHUB_REF
+      env:
+        GITHUB_CONTEXT: ${{ github.event_name }}
+      run: echo $GITHUB_CONTEXT
+
+    - name: Dump GitHub context
+      env:
+        GITHUB_CONTEXT: ${{ toJSON(github) }}
+      run: echo "$GITHUB_CONTEXT"
 
     - name: Install dependencies
       run: npm ci
