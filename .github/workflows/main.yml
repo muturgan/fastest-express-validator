@@ -1,4 +1,4 @@
-name: NORE CI FOR THE CI GOD!
+name: MORE CI FOR THE CI GOD!
 
 on:
   push:
@@ -56,12 +56,16 @@ jobs:
     - name: Check coverage
       run: npm run check_coverage
 
+
   npm_publishing:
     name: npm_publishing
     needs:
       - quality_checking
     runs-on: ubuntu-20.04
     steps:
+    - name: Checkout repository
+      uses: actions/checkout@master
+
     - name: Check published versions
       run: echo "NEED_PUBLISH=$(node tools/publish.helper.cjs)" >> $GITHUB_ENV
 
