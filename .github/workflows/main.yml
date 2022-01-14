@@ -21,6 +21,9 @@ jobs:
     - name: Remove a dist folder from gitignore
       run: sed -i '$ d' .gitignore
 
+    - name: REF
+      run: echo gihub.ref
+
     - name: Install dependencies
       run: npm ci
 
