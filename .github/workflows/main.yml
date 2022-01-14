@@ -2,7 +2,13 @@ name: MORE CI FOR THE CI GOD!
 
 on:
   push:
-    branches: [ master ]
+    # branches: [ master ]
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - edited
+      - synchronize
 
 jobs:
   quality_checking:
@@ -21,15 +27,13 @@ jobs:
     - name: Remove a dist folder from gitignore
       run: sed -i '$ d' .gitignore
 
-    - name: REF
+    - name: event_name
       env:
         GITHUB_CONTEXT: ${{ github.event_name }}
       run: echo $GITHUB_CONTEXT
 
-    - name: Dump GitHub context
-      env:
-        GITHUB_CONTEXT: ${{ toJSON(github) }}
-      run: echo "$GITHUB_CONTEXT"
+    - name: GITHUB_REF
+      run: echo $GITHUB_REF
 
     - name: Install dependencies
       run: npm ci
