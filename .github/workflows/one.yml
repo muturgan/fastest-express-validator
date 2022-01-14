@@ -1,0 +1,15 @@
+name: one
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  npm-publish:
+    name: one
+    needs:
+      - lint
+    runs-on: ubuntu-20.04
+    steps:
+    - name: one
+      run: echo ONE_ONE
