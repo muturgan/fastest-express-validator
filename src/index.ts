@@ -47,7 +47,7 @@ export const RequestValidator = <B extends Record<string, unknown> = {}, Q exten
       if (Boolean(schemas[key]) === true) {
          checkFuncs.push({
             key,
-            checkFunc: v.compile(schemas[key]),
+            checkFunc: v.compile(schemas[key])
          });
       }
    }
