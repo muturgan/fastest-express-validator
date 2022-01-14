@@ -24,6 +24,9 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
+    - name: Audit vulnerabilities
+      run: npm run audit
+
     - name: Linting
       run: npm run lint_ci
 

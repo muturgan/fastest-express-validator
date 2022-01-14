@@ -21,6 +21,7 @@
     "build_es6": "tsc -p tsconfig.es6.json && mv dist/es6/index.js dist/es6/index.mjs",
     "lint_ci": "tslint 'src/**/*.ts'",
     "lint_staged": "tslint",
+    "audit": "npm audit | grep 'found' | grep -E 'moderate|high|critical' && exit 1 || exit 0",
     "just_test": "mocha -t 10000 dist/tests/**/*.test.js",
     "calculate_coverage": "nyc --include=dist/**/*.cjs --reporter=json-summary --reporter=text --reporter=text-summary",
     "check_coverage": "node tools/check_coverage.cjs",
