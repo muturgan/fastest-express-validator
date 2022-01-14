@@ -73,6 +73,7 @@ jobs:
 
   npm_publishing:
     name: npm_publishing
+    if: github.ref == 'refs/heads/master'
     needs:
       - quality_checking
     runs-on: ubuntu-20.04
