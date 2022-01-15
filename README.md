@@ -65,7 +65,7 @@ app.use((err, req, res, next) => {
     res.status(500).send('Something broke!');
 });
 
-app.listen(2022, () => console.log('check it on http://localhost:3000?name=one'));
+app.listen(2022, () => console.log('check it on http://localhost:2022?name=one'));
 ```
 
 Also this package exports a **DefaultRequestValidator** function. It already have a default validation error handling behaviour - send 404 on params validation error and 422 (with error details at response body) on query and body validation error.
