@@ -1,5 +1,5 @@
 {
   "*.ts": [
-    "npm run lint_staged"
+    "npm run lint_on_commit"
   ]
 }
