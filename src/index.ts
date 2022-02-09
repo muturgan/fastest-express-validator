@@ -1,6 +1,6 @@
 import { RequestHandler, Request, Response, NextFunction } from 'express';
-import Validator, { ValidationSchema, ValidationError, SyncCheckFunction, AsyncCheckFunction } from 'fastest-validator';
-export { ValidationError } from 'fastest-validator';
+import Validator, { ValidationSchema, ValidationError, SyncCheckFunction, AsyncCheckFunction, ValidatorConstructorOptions } from 'fastest-validator';
+export { ValidationError, ValidatorConstructorOptions } from 'fastest-validator';
 
 type TCheckFunc = SyncCheckFunction | AsyncCheckFunction;
 
@@ -36,11 +36,17 @@ export type TParamsValidationErrorHandler<P extends Record<string, string> = {},
 export type TRequestValidator<B extends Record<string, unknown> = {}, Q extends Record<string, string> = {}, P extends Record<string, string> = {}, ResBody = any, L extends Record<string, unknown> = {}> = (schemas: IRequestValidationSchema<B, Q, P>, errorHandler?: TValidationErrorHandler<B, Q, P, ResBody, L> | null) => RequestHandler<P, ResBody, B, Q, L>;
 
 
-const v = new Validator();
+const getValidator = (options?: ValidatorConstructorOptions | null): Validator => {
+   const o: ValidatorConstructorOptions = options !== null && typeof options === 'object'
+      ? options
+      : {};
+   return new Validator({useNewCustomCheckerFunction: true, ...o});
+};
 
 
-export const RequestValidator = <B extends Record<string, unknown> = {}, Q extends Record<string, string> = {}, P extends Record<string, string> = {}, ResBody = any, L extends Record<string, unknown> = {}>(schemas: IRequestValidationSchema<B, Q, P>, errorHandler?: TValidationErrorHandler<B, Q, P, ResBody, L> | null): RequestHandler<P, ResBody, B, Q, L> =>
+export const RequestValidator = <B extends Record<string, unknown> = {}, Q extends Record<string, string> = {}, P extends Record<string, string> = {}, ResBody = any, L extends Record<string, unknown> = {}>(schemas: IRequestValidationSchema<B, Q, P>, errorHandler?: TValidationErrorHandler<B, Q, P, ResBody, L> | null, options?: ValidatorConstructorOptions | null): RequestHandler<P, ResBody, B, Q, L> =>
 {
+   const v = getValidator(options);
    const checkFuncs: Array<{key: string, checkFunc: TCheckFunc}> = [];
 
    for (const key in schemas) {
@@ -108,8 +114,9 @@ const defaultRequestValidatorHandler: TValidationErrorHandler = (mayBeErrors, _r
 
 
 
-export const BodyValidator = <B extends Record<string, unknown> = {}, ResBody = any, L extends Record<string, unknown> = {}>(schema: ValidationSchema<B>, errorHandler?: TBodyValidationErrorHandler<B, ResBody, L> | null): RequestHandler<{}, ResBody, B, {}, L> =>
+export const BodyValidator = <B extends Record<string, unknown> = {}, ResBody = any, L extends Record<string, unknown> = {}>(schema: ValidationSchema<B>, errorHandler?: TBodyValidationErrorHandler<B, ResBody, L> | null, options?: ValidatorConstructorOptions | null): RequestHandler<{}, ResBody, B, {}, L> =>
 {
+   const v = getValidator(options);
    const checkFunc: TCheckFunc = v.compile(schema);
 
    return async (req, res, next): Promise<void> =>
@@ -138,9 +145,10 @@ export const BodyValidator = <B extends Record<string, unknown> = {}, ResBody = 
 };
 
 
-export const QueryValidator = <Q extends Record<string, string> = {}, ResBody = any, L extends Record<string, unknown> = {}>(schema: ValidationSchema<Q>, errorHandler?: TQueryValidationErrorHandler<Q, ResBody, L> | null): RequestHandler<{}, ResBody, {}, Q, L> =>
+export const QueryValidator = <Q extends Record<string, string> = {}, ResBody = any, L extends Record<string, unknown> = {}>(schema: ValidationSchema<Q>, errorHandler?: TQueryValidationErrorHandler<Q, ResBody, L> | null, options?: ValidatorConstructorOptions | null): RequestHandler<{}, ResBody, {}, Q, L> =>
 {
-   const checkFunc: TCheckFunc = v.compile(schema);
+   const v = getValidator(options);
+   const checkFunc = v.compile(schema);
 
    return async (req, res, next): Promise<void> =>
    {
@@ -168,8 +176,9 @@ export const QueryValidator = <Q extends Record<string, string> = {}, ResBody = 
 };
 
 
-export const ParamsValidator = <P extends Record<string, string> = {}, ResBody = any, L extends Record<string, unknown> = {}>(schema: ValidationSchema<P>, errorHandler?: TParamsValidationErrorHandler<P, ResBody, L> | null): RequestHandler<P, ResBody, {}, {}, L> =>
+export const ParamsValidator = <P extends Record<string, string> = {}, ResBody = any, L extends Record<string, unknown> = {}>(schema: ValidationSchema<P>, errorHandler?: TParamsValidationErrorHandler<P, ResBody, L> | null, options?: ValidatorConstructorOptions | null): RequestHandler<P, ResBody, {}, {}, L> =>
 {
+   const v = getValidator(options);
    const checkFunc: TCheckFunc = v.compile(schema);
 
    return async (req, res, next): Promise<void> =>
@@ -198,6 +207,6 @@ export const ParamsValidator = <P extends Record<string, string> = {}, ResBody =
 };
 
 
-export const DefaultRequestValidator = <B extends Record<string, unknown> = {}, Q extends Record<string, string> = {}, P extends Record<string, string> = {}, ResBody = any, L extends Record<string, unknown> = {}>(schemas: IRequestValidationSchema<B, Q, P>): RequestHandler<P, ResBody, B, Q, L> => {
-   return RequestValidator(schemas, defaultRequestValidatorHandler);
+export const DefaultRequestValidator = <B extends Record<string, unknown> = {}, Q extends Record<string, string> = {}, P extends Record<string, string> = {}, ResBody = any, L extends Record<string, unknown> = {}>(schemas: IRequestValidationSchema<B, Q, P>, options?: ValidatorConstructorOptions | null): RequestHandler<P, ResBody, B, Q, L> => {
+   return RequestValidator(schemas, defaultRequestValidatorHandler, options);
 };
