@@ -13,7 +13,11 @@ based on [fastest-validator][fastest-validator]
 ## Example
 ``` js
 const app = require('express')();
-const { RequestValidator, QueryValidator } = require('fastest-express-validator');
+const {
+    RequestValidator,
+    QueryValidator,
+    DefaultRequestValidator,
+} = require('fastest-express-validator');
 
 const querySchema = {
     name: { type: "string", min: 3, max: 255 },
@@ -35,10 +39,21 @@ const middlewareWithCustomHandler = RequestValidator(
     customErrorHandler,
 );
 
+const middlewareWithDebug = RequestValidator(
+    { query: querySchema },
+    null, // define a custom error handler if you want to
+
+    { debug: true } // you can pass some options for a fastest-validator instance
+                    // it should implements a ValidatorConstructorOptions interface
+                    // note that this package set a "useNewCustomCheckerFunction" option in true by default
+                    // so you should override it to use a v1 syntax for built-in rules
+);
+
 // also this package provides BodyValidator and ParamsValidator short validators
 const shortQueryMiddleware = QueryValidator(
     querySchema,
-    // also you can pass a custom error handler in a second argument
+    // also you can pass a custom error handler in a second argument,
+    // also you can pass a ValidatorConstructorOptions in a third argument
 );
 
 app.get('/', validationMiddleware, (req, res) => {
@@ -53,10 +68,29 @@ app.get('/custom', middlewareWithCustomHandler, (req, res) => {
     res.send('Hello Custom');
 });
 
+app.get('/debug', middlewareWithDebug, (req, res) => {
+    console.log('a query object at the debug route is:');
+    console.log(req.query);
+    res.send('Hello Debug');
+});
+
 app.get('/short', shortQueryMiddleware, (req, res) => {
     console.log('a query object at the short route is:');
     console.log(req.query);
     res.send('Hello Short');
+});
+
+// This middleware already have a default validation error handling behaviour -
+// send 404 on params validation error
+// and 422 (with error details at response body) on query and body validation error.
+const defaultQueryValidationMiddleware = DefaultRequestValidator(
+    { query: schema /* body, params */ },
+    // you can pass a ValidatorConstructorOptions here
+);
+app.get('/default', defaultQueryValidationMiddleware, (req, res) => {
+    console.log('a query object at the default route is:');
+    console.log(req.query);
+    res.send('Hello Default');
 });
 
 app.use((err, req, res, next) => {
@@ -67,5 +101,3 @@ app.use((err, req, res, next) => {
 
 app.listen(2022, () => console.log('check it on http://localhost:2022?name=one'));
 ```
-
-Also this package exports a **DefaultRequestValidator** function. It already have a default validation error handling behaviour - send 404 on params validation error and 422 (with error details at response body) on query and body validation error.
