@@ -1,5 +1,11 @@
 # Changelog
 
+### 1.7.0
+
+#### Added
+
+- every validator factory can get an additional argument now - ValidatorConstructorOptions for a fastest-validator instance (resolve [#4](https://github.com/muturgan/fastest-express-validator/issues/4))
+
 ### 1.6.0
 
 #### Added
