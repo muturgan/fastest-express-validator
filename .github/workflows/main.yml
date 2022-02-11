@@ -11,8 +11,8 @@ on:
       - synchronize
 
 jobs:
-  quality_checking:
-    name: quality_checking
+  quality_checking_and_publishing:
+    name: quality_checking_and_publishing
     runs-on: ubuntu-20.04
     steps:
     - name: Checkout repository
@@ -23,9 +23,6 @@ jobs:
       with:
         node-version: 14
         registry-url: https://registry.npmjs.org/
-
-    - name: Remove a dist folder from gitignore
-      run: sed -i '$ d' .gitignore
 
     - name: Install dependencies
       run: npm ci
@@ -62,23 +59,13 @@ jobs:
     - name: Check coverage
       run: npm run check_coverage
 
-
-  npm_publishing:
-    name: npm_publishing
-    if: github.ref == 'refs/heads/master'
-    needs:
-      - quality_checking
-    runs-on: ubuntu-20.04
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@master
-
-    - name: Check published versions
+    - if: github.ref == 'refs/heads/master'
+      name: Check published versions
       run: echo "NEED_PUBLISH=$(node tools/publish.helper.cjs)" >> $GITHUB_ENV
 
     - if: ${{ env.NEED_PUBLISH == 'true' }}
-      name: Install dependencies
-      run: npm ci
+      name: Remove a dist folder from gitignore
+      run: sed -i '$ d' .gitignore
 
     - if: ${{ env.NEED_PUBLISH == 'true' }}
       name: Publish
