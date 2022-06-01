@@ -210,3 +210,5 @@ export const ParamsValidator = <P extends Record<string, string> = {}, ResBody =
 export const DefaultRequestValidator = <B extends Record<string, unknown> = {}, Q extends Record<string, string> = {}, P extends Record<string, string> = {}, ResBody = any, L extends Record<string, unknown> = {}>(schemas: IRequestValidationSchema<B, Q, P>, options?: ValidatorConstructorOptions | null): RequestHandler<P, ResBody, B, Q, L> => {
    return RequestValidator(schemas, defaultRequestValidatorHandler, options);
 };
+
+console.info(42);

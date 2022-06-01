@@ -20,7 +20,6 @@
     "build_cjs": "tsc -p tsconfig.json && mv dist/index.js dist/index.cjs",
     "build_es6": "tsc -p tsconfig.es6.json && mv dist/es6/index.js dist/es6/index.mjs",
     "lint_ci": "tslint 'src/**/*.ts'",
-    "lint_on_commit": "tslint",
     "lint_staged": "lint-staged",
     "audit": "npm audit | grep 'found' | grep -E 'moderate|high|critical' && exit 1 || exit 0",
     "just_test": "mocha -t 10000 dist/tests/**/*.test.js",
