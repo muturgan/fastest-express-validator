@@ -1,5 +1,11 @@
 # Changelog
 
+### 1.7.3
+
+#### Chore
+
+- a cjs bundle minimized even more
+
 ### 1.7.2
 
 #### Chore

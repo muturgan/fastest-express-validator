@@ -19,5 +19,9 @@ fileContent = fileContent.replace(
     'fastest_validator_1.default',
     'Validator'
 );
+fileContent = fileContent.replace(
+    '(0, exports.RequestValidator)',
+    'RequestValidator'
+);
 
 fs.writeFileSync(TARGET_PATH, fileContent, {flag: 'w'});
