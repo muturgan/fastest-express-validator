@@ -1,4 +1,3 @@
-const { EOL } = require('os');
 const fs = require('fs');
 const path = require('path');
 
