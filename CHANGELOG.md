@@ -1,5 +1,11 @@
 # Changelog
 
+### 1.8.0
+
+#### Chore
+
+- **fastest-validator** updated to **1.13.0**
+
 ### 1.7.3
 
 #### Chore
