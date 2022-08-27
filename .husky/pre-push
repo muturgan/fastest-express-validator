@@ -3,4 +3,4 @@
 
 npm run audit
 npm run test
-npm run check_coverage
+# npm run check_coverage
