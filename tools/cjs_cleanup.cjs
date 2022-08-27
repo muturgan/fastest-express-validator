@@ -25,3 +25,14 @@ fileContent = fileContent.replace(
 );
 
 fs.writeFileSync(TARGET_PATH, fileContent, {flag: 'w'});
+
+const TEST_HELPER_PATH = path.join(process.cwd(), 'dist', 'tests', 'helpers', 'test_app.js');
+
+let helperContent = fs.readFileSync(TEST_HELPER_PATH).toString();
+
+helperContent = helperContent.replace(
+    'const index_1 = require("../../index");',
+    'const index_1 = require("../../index.cjs");'
+);
+
+fs.writeFileSync(TEST_HELPER_PATH, helperContent, {flag: 'w'});

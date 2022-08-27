@@ -21,7 +21,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@master
       with:
-        node-version: 14
+        node-version: 18
         registry-url: https://registry.npmjs.org/
 
     - name: Install dependencies
@@ -39,25 +39,25 @@ jobs:
     - name: Test
       run: npm run test
 
-    - name: Calculate Coverage
-      run: |
-        echo "COVERAGE=$(node -pe 'JSON.parse(process.argv[1]).total.branches.pct + "%"' "$(cat coverage/coverage-summary.json)")" >> $GITHUB_ENV
-        echo "COVERAGE_COLOR=$(node tools/get_coverage_color.cjs)" >> $GITHUB_ENV
+    # - name: Calculate Coverage
+    #   run: |
+    #     echo "COVERAGE=$(node -pe 'JSON.parse(process.argv[1]).total.branches.pct + "%"' "$(cat coverage/coverage-summary.json)")" >> $GITHUB_ENV
+    #     echo "COVERAGE_COLOR=$(node tools/get_coverage_color.cjs)" >> $GITHUB_ENV
 
-    - name: Create Coverage Badge
-      uses: schneegans/dynamic-badges-action@v1.0.0
-      with:
-        auth: ${{ secrets.GIST_SECRET }}
-        gistID: ${{ secrets.GIST_ID }}
-        filename: fev_coverage.json
-        label: coverage
-        message: ${{ env.COVERAGE }}
-        color: ${{ env.COVERAGE_COLOR }}
-        namedLogo: mocha
-        logoColor: white
+    # - name: Create Coverage Badge
+    #   uses: schneegans/dynamic-badges-action@v1.0.0
+    #   with:
+    #     auth: ${{ secrets.GIST_SECRET }}
+    #     gistID: ${{ secrets.GIST_ID }}
+    #     filename: fev_coverage.json
+    #     label: coverage
+    #     message: ${{ env.COVERAGE }}
+    #     color: ${{ env.COVERAGE_COLOR }}
+    #     namedLogo: mocha
+    #     logoColor: white
 
-    - name: Check coverage
-      run: npm run check_coverage
+    # - name: Check coverage
+    #   run: npm run check_coverage
 
     - if: github.ref == 'refs/heads/master'
       name: Check published versions

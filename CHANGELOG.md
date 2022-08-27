@@ -1,5 +1,11 @@
 # Changelog
 
+### 1.8.1
+
+#### Chore
+
+- using node built-in **fetch** and **test** modules
+
 ### 1.8.0
 
 #### Chore
