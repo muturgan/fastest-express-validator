@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require('node:path');
 
 const COVERAGE_INFO_PATH = path.join(process.cwd(), 'coverage', 'coverage-summary.json');
 

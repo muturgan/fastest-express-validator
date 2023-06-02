@@ -1,5 +1,5 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require('node:fs');
+const path = require('node:path');
 
 const TARGET_PATH = path.join(process.cwd(), 'dist', 'index.cjs');
 
