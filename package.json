@@ -1,6 +1,6 @@
 {
   "name": "fastest-express-validator",
-  "version": "1.9.0",
+  "version": "1.9.1",
   "description": "request validation middleware for express",
   "author": "Andrey Sakharov <caxap_8787@mail.ru> (https://www.linkedin.com/in/andrey-sakharov/)",
   "license": "MIT",
@@ -17,9 +17,10 @@
     "npm": ">=6.14.18"
   },
   "scripts": {
-    "build": "npm run build_cjs && npm run build_es6",
+    "build": "npm run build_cjs && npm run build_es6 && npm run patch_typings",
     "build_cjs": "tsc -p tsconfig.json && mv dist/index.js dist/index.cjs && node tools/cjs_cleanup.cjs",
     "build_es6": "tsc -p tsconfig.es6.json && mv dist/es6/index.js dist/es6/index.mjs",
+    "patch_typings": "node tools/referencer.cjs",
     "lint_ci": "tslint 'src/**/*.ts'",
     "lint_staged": "lint-staged",
     "audit": "npm audit | grep 'found' | grep -E 'moderate|high|critical' && exit 1 || exit 0",
