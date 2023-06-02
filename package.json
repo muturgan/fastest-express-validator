@@ -1,6 +1,6 @@
 {
   "name": "fastest-express-validator",
-  "version": "1.9.1",
+  "version": "1.9.2",
   "description": "request validation middleware for express",
   "author": "Andrey Sakharov <caxap_8787@mail.ru> (https://www.linkedin.com/in/andrey-sakharov/)",
   "license": "MIT",
