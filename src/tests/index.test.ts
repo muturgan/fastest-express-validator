@@ -735,6 +735,6 @@ app.listen(TEST_PORT, async () =>
    //    });
    // });
 
-   // just kill the server to make test faster
+   // just kill the server to make tests faster
    process.exit(0);
 });
