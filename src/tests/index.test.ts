@@ -19,7 +19,7 @@ const userSchema: IRequestValidationSchema</*Body*/{name: string}, {}, /*Params*
 const app = helpers.appFactory(schema, userSchema);
 
 const TEST_PORT = Number(process.env.TEST_PORT) || 3333;
-const server = app.listen(TEST_PORT, async () =>
+app.listen(TEST_PORT, async () =>
 {
    await test('fastest-express-validator', async (t) =>
    {
@@ -729,9 +729,12 @@ const server = app.listen(TEST_PORT, async () =>
       ]);
    });
 
-   await new Promise<void>((resolve, reject) => {
-      server.close((err) => {
-         err === undefined ? resolve() : reject(err);
-      });
-   });
+   // await new Promise<void>((resolve, reject) => {
+   //    server.close((err) => {
+   //       err === undefined ? resolve() : reject(err);
+   //    });
+   // });
+
+   // just kill the server to make tests faster
+   process.exit(0);
 });

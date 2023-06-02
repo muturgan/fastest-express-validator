@@ -1,2 +1,3 @@
 *.cjs linguist-detectable=false
 *.sh linguist-detectable=false
+.husky/* linguist-detectable=false
