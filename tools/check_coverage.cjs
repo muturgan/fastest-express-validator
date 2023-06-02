@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require('node:path');
 
 const MIN_COVERAGE_PERCENT = Number(process.env.MIN_COVERAGE_PERCENT) || 80;
 const COVERAGE_INFO_PATH = path.join(process.cwd(), 'coverage', 'coverage-summary.json');

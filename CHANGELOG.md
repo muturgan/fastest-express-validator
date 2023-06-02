@@ -1,5 +1,11 @@
 # Changelog
 
+### 1.9.1
+
+#### Fixed
+
+- add types reference to a declaration file
+
 ### 1.9.0
 
 #### Chore
