@@ -1,5 +1,5 @@
-import assert = require('assert');
-import crypto = require('crypto');
+import assert = require('node:assert');
+import crypto = require('node:crypto');
 import { test } from 'node:test';
 import helpers = require('./helpers/test_app');
 import { ValidationSchema } from 'fastest-validator';
