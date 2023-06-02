@@ -1,5 +1,11 @@
 # Changelog
 
+### 1.9.2
+
+#### Chore
+
+- build badge fixed
+
 ### 1.9.1
 
 #### Fixed
