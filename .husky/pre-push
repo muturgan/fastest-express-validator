@@ -1,6 +1,7 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+node tools/check_license.cjs
 npm run audit
 npm run test_coverage
 node tools/check_coverage.cjs
