@@ -25,6 +25,7 @@
     "lint_staged": "lint-staged",
     "audit": "npm audit | grep 'found' | grep -E 'moderate|high|critical' && exit 1 || exit 0",
     "test": "node --test",
+    "test_coverage": "node --test --experimental-test-coverage --test-reporter=spec --test-reporter=tap --test-reporter-destination=stdout --test-reporter-destination=coverage.txt",
     "prebuild": "rm -rf dist || npx rimraf dist",
     "prepare": "husky install"
   },
