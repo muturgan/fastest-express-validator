@@ -1,5 +1,11 @@
 # Changelog
 
+### 1.9.3
+
+#### Fixed
+
+- do not use a broken fastest-validator option in my readme
+
 ### 1.9.2
 
 #### Chore

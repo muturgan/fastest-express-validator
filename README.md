@@ -39,14 +39,15 @@ const middlewareWithCustomHandler = RequestValidator(
     customErrorHandler,
 );
 
-const middlewareWithDebug = RequestValidator(
+const fastMiddleware = RequestValidator(
     { query: querySchema },
     null, // define a custom error handler if you want to
 
-    { debug: true } // you can pass some options for a fastest-validator instance
-                    // it should implements a ValidatorConstructorOptions interface
-                    // note that this package set a "useNewCustomCheckerFunction" option in true by default
-                    // so you should override it to use a v1 syntax for built-in rules
+    /* you can pass some options for a fastest-validator instance
+    it should implements a ValidatorConstructorOptions interface
+    note that this package set a "useNewCustomCheckerFunction" option in true by default
+    so you should override it to use a v1 syntax for built-in rules */
+    { haltOnFirstError: true }
 );
 
 // also this package provides BodyValidator and ParamsValidator short validators
@@ -68,10 +69,10 @@ app.get('/custom', middlewareWithCustomHandler, (req, res) => {
     res.send('Hello Custom');
 });
 
-app.get('/debug', middlewareWithDebug, (req, res) => {
-    console.log('a query object at the debug route is:');
+app.get('/fast', fastMiddleware, (req, res) => {
+    console.log('a query object at the fast route is:');
     console.log(req.query);
-    res.send('Hello Debug');
+    res.send('It was fast');
 });
 
 app.get('/short', shortQueryMiddleware, (req, res) => {
