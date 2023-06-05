@@ -1,6 +1,7 @@
 import assert = require('node:assert');
 import crypto = require('node:crypto');
-import { test } from 'node:test';
+import T = require('node:test');
+import asyncTimers = require('node:timers/promises');
 import helpers = require('./helpers/test_app');
 import { ValidationSchema } from 'fastest-validator';
 import { IRequestValidationSchema, IRequestValidationError } from '../index';
@@ -21,7 +22,7 @@ const app = helpers.appFactory(schema, userSchema);
 const TEST_PORT = Number(process.env.TEST_PORT) || 3333;
 app.listen(TEST_PORT, async () =>
 {
-   await test('fastest-express-validator', async (t) =>
+   await T.test('fastest-express-validator', async (t) =>
    {
       await Promise.all([
          t.test('RequestValidator', async (tt) =>
@@ -725,6 +726,26 @@ app.listen(TEST_PORT, async () =>
                   ]);
                }),
             ]);
+         }),
+
+
+         t.test('Readme', async (tt) =>
+         {
+            await tt.test('Example from readme should works', async (ttt) =>
+            {
+               await ttt.test('custom options for fastest-validator', async () =>
+               {
+                  const res = await fetch(`http://localhost:${TEST_PORT}/readme?name=xxx`);
+                  await res.arrayBuffer();
+
+                  assert.strictEqual(res.status, 200, 'request with a correct query field is rejected (readme)');
+               });
+            });
+         }),
+
+
+         t.test('something strange - a last test from array does not run', async () => {
+            await asyncTimers.setTimeout(1);
          }),
       ]);
    });

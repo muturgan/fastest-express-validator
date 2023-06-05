@@ -32,7 +32,7 @@
     "curly": true,
     "trailing-comma": [true, {"multiline": "always", "singleline": "never"}],
     "array-type": [true, "array-simple"],
-    "no-submodule-imports": [true, "rxjs"],
+    "no-submodule-imports": [true, "node:timers"],
     "interface-name": [true, "always-prefix"],
     "member-access": [true, "check-accessor", "check-parameter-property"]
   }

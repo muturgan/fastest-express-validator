@@ -123,6 +123,18 @@ export const appFactory = (schema: ValidationSchema<{name: string}>, userSchema:
 
 
 
+   const readmeValidationMiddleware = RequestValidator(
+      {query: schema},
+      null,
+      {haltOnFirstError: true},
+   );
+   app.get('/readme', readmeValidationMiddleware, (req, res) => {
+      const status = req.query.name ? 200 : 500;
+      res.sendStatus(status);
+   });
+
+
+
    app.use((err, _req, res, _next) => {
       res.status(500).send(err);
    });

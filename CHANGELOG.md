@@ -1,5 +1,11 @@
 # Changelog
 
+### 1.9.4
+
+#### Chore
+
+- Example from readme covered with test
+
 ### 1.9.3
 
 #### Fixed
