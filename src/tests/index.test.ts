@@ -1,7 +1,6 @@
 import assert = require('node:assert');
 import crypto = require('node:crypto');
 import T = require('node:test');
-import asyncTimers = require('node:timers/promises');
 import helpers = require('./helpers/test_app');
 import { ValidationSchema } from 'fastest-validator';
 import { IRequestValidationSchema, IRequestValidationError } from '../index';
@@ -20,7 +19,7 @@ const userSchema: IRequestValidationSchema</*Body*/{name: string}, {}, /*Params*
 const app = helpers.appFactory(schema, userSchema);
 
 const TEST_PORT = Number(process.env.TEST_PORT) || 3333;
-app.listen(TEST_PORT, async () =>
+const server = app.listen(TEST_PORT, async () =>
 {
    await T.test('fastest-express-validator', async (t) =>
    {
@@ -742,20 +741,12 @@ app.listen(TEST_PORT, async () =>
                });
             });
          }),
-
-
-         t.test('something strange - a last test from array does not run', async () => {
-            await asyncTimers.setTimeout(1);
-         }),
       ]);
    });
 
-   // await new Promise<void>((resolve, reject) => {
-   //    server.close((err) => {
-   //       err === undefined ? resolve() : reject(err);
-   //    });
-   // });
-
-   // just kill the server to make tests faster
-   process.exit(0);
+   await new Promise<void>((resolve, reject) => {
+      server.close((err) => {
+         err === undefined ? resolve() : reject(err);
+      });
+   });
 });
