@@ -1,5 +1,11 @@
 # Changelog
 
+### 2.0.0
+
+#### BREAKING CHANGE
+
+- `fastest-validator` moved to peerDependencies
+
 ### 1.9.5
 
 #### Chore

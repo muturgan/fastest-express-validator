@@ -1,6 +1,6 @@
 {
   "name": "fastest-express-validator",
-  "version": "1.9.5",
+  "version": "2.0.0",
   "description": "request validation middleware for express",
   "author": "Andrey Sakharov <caxap_8787@mail.ru> (https://www.linkedin.com/in/andrey-sakharov/)",
   "license": "MIT",
@@ -50,13 +50,14 @@
     "dist",
     "!dist/tests/*"
   ],
-  "dependencies": {
+  "peerDependencies": {
     "fastest-validator": "^1.18.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
     "@types/node": "^20.14.9",
     "express": "^4.19.2",
+    "fastest-validator": "^1.18.0",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.7",
     "tslint": "^6.1.3",
