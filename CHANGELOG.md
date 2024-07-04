@@ -1,5 +1,11 @@
 # Changelog
 
+### 1.9.5
+
+#### Chore
+
+- Exports improvement; dependencies updated
+
 ### 1.9.4
 
 #### Chore
