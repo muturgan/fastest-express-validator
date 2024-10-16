@@ -6,7 +6,7 @@
 ![License Badge](https://img.shields.io/npm/l/fastest-express-validator)
 
 request validation middleware for [express][express]
-based on [fastest-validator][fastest-validator]
+based on [fastest-validator][fastest-validator] (testted with both express v4 and v5)
 
 [express]: https://expressjs.com
 [fastest-validator]: https://github.com/icebob/fastest-validator

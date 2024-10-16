@@ -1,5 +1,13 @@
 # Changelog
 
+### 2.0.1
+
+#### Chore
+
+- Dependencies updated. Looks like it still works with express v5 too...
+- A Hits-of-Code badge was added
+- Husky scripts updated
+
 ### 2.0.0
 
 #### BREAKING CHANGE
