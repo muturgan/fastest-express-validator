@@ -1,6 +1,7 @@
 # fastest-express-validator
 ![NPM Version Badge](https://img.shields.io/npm/v/fastest-express-validator?logo=npm)
 <a href="https://github.com/muturgan/fastest-express-validator/actions/workflows/main.yml" target="_blank"><img src="https://img.shields.io/github/actions/workflow/status/muturgan/fastest-express-validator/main.yml?branch=master&logo=github" alt="CI Build Badge" /></a>
+[![Hits-of-Code](https://hitsofcode.com/github/muturgan/fastest-express-validator)](https://hitsofcode.com/view/github/muturgan/fastest-express-validator)
 ![Coverage Badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/muturgan/c7b1c29d6e20c66c9c38971617b3865c/raw/fev_coverage.json)
 ![License Badge](https://img.shields.io/npm/l/fastest-express-validator)
 
