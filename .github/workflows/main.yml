@@ -69,7 +69,7 @@ jobs:
 
     - if: ${{ env.NEED_PUBLISH == 'true' }}
       name: Install zopfli
-      run: apt install zopfli
+      run: sudo apt-get install zopfli
 
     - if: ${{ env.NEED_PUBLISH == 'true' }}
       name: Compress with a default archiver
