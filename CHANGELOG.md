@@ -1,5 +1,11 @@
 # Changelog
 
+### 2.0.2
+
+#### Chore
+
+- Publishing the package with a zopfli archver
+
 ### 2.0.1
 
 #### Chore
