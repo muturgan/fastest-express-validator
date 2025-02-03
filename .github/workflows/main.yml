@@ -68,7 +68,27 @@ jobs:
       run: sed -i '$ d' .gitignore
 
     - if: ${{ env.NEED_PUBLISH == 'true' }}
+      name: Install zopfli
+      run: apt install zopfli
+
+    - if: ${{ env.NEED_PUBLISH == 'true' }}
+      name: Compress with a default archiver
+      run: npm pack
+
+    - if: ${{ env.NEED_PUBLISH == 'true' }}
+      name: Gunzip a package
+      run: gunzip fastest-express-validator-*.tgz
+
+    - if: ${{ env.NEED_PUBLISH == 'true' }}
+      name: Compress with a zopfli archiver
+      run: zopfli --i100 fastest-express-validator-*.tar
+
+    - if: ${{ env.NEED_PUBLISH == 'true' }}
+      name: Rename a package file
+      run: find . -name '*.tar.gz' -exec sh -c 'mv "$0" "${0%.tar.gz}.tgz"' {} \;
+
+    - if: ${{ env.NEED_PUBLISH == 'true' }}
       name: Publish
-      run: npm publish
+      run: npm publish fastest-express-validator-*.tar.gz
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
