@@ -89,6 +89,6 @@ jobs:
 
     - if: ${{ env.NEED_PUBLISH == 'true' }}
       name: Publish
-      run: npm publish fastest-express-validator-*.tar.gz
+      run: npm publish fastest-express-validator-*.tgz
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
