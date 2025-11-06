@@ -1,5 +1,11 @@
 # Changelog
 
+### 2.0.3
+
+#### Docs
+
+- Added an excluding param to a HoC calculation link
+
 ### 2.0.2
 
 #### Chore
