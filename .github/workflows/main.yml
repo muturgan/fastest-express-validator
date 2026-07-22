@@ -21,7 +21,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@master
       with:
-        node-version: 24
+        node-version: 26
         registry-url: https://registry.npmjs.org/
 
     - name: Check license

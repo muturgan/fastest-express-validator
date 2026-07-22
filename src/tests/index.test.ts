@@ -32,7 +32,7 @@ const server = app.listen(TEST_PORT, async () =>
                   await Promise.all([
                      ttt.test('missing a required query param', async () => {
                         const res = await fetch(`http://localhost:${TEST_PORT}/query`);
-                        const parsedBody: IRequestValidationError = await res.json();
+                        const parsedBody = await res.json() as IRequestValidationError;
 
                         assert.strictEqual(res.status, 500, 'request with a missed required query param is not rejected');
                         assert.strictEqual('query' in parsedBody, true, 'response body does not contains a "query" field');
@@ -41,7 +41,7 @@ const server = app.listen(TEST_PORT, async () =>
 
                      ttt.test('invalid query', async () => {
                         const res = await fetch(`http://localhost:${TEST_PORT}/query?name=xx`);
-                        const parsedBody: IRequestValidationError = await res.json();
+                        const parsedBody = await res.json() as IRequestValidationError;
 
                         assert.strictEqual(res.status, 500, 'request with an invalid query field is not rejected');
                         assert.strictEqual('query' in parsedBody, true, 'response body does not contains a "query" field');
@@ -62,7 +62,7 @@ const server = app.listen(TEST_PORT, async () =>
                   await Promise.all([
                      ttt.test('invalid params', async () => {
                         const res = await fetch(`http://localhost:${TEST_PORT}/params/xx`);
-                        const parsedBody: IRequestValidationError = await res.json();
+                        const parsedBody = await res.json() as IRequestValidationError;
 
                         assert.strictEqual(res.status, 500, 'request with an invalid url pattern is not rejected');
                         assert.strictEqual('params' in parsedBody, true, 'response body does not contains a "params" field');
@@ -89,7 +89,7 @@ const server = app.listen(TEST_PORT, async () =>
                            },
                            body: JSON.stringify({}),
                         });
-                        const parsedBody: IRequestValidationError = await res.json();
+                        const parsedBody = await res.json() as IRequestValidationError;
 
                         assert.strictEqual(res.status, 500, 'request with a missed required body field is not rejected');
                         assert.strictEqual('body' in parsedBody, true, 'response body does not contains a "body" field');
@@ -104,7 +104,7 @@ const server = app.listen(TEST_PORT, async () =>
                            },
                            body: JSON.stringify({name: 5}),
                         });
-                        const parsedBody: IRequestValidationError = await res.json();
+                        const parsedBody = await res.json() as IRequestValidationError;
 
                         assert.strictEqual(res.status, 500, 'request with an incomplete body is not rejected');
                         assert.strictEqual('body' in parsedBody, true, 'response body does not contains a "body" field');
@@ -119,7 +119,7 @@ const server = app.listen(TEST_PORT, async () =>
                            },
                            body: '{"name: 5}',
                         });
-                        const parsedBody = await res.json();
+                        const parsedBody = await res.json() as {type: string} | undefined;
 
                         assert.strictEqual(res.status, 500, 'runtime error (broken json parsing) is not catched');
                         assert.strictEqual(parsedBody?.type, 'entity.parse.failed', 'response body does not contains an error description');
@@ -152,7 +152,7 @@ const server = app.listen(TEST_PORT, async () =>
                   await Promise.all([
                      ttt.test('missing a required query param', async () => {
                         const res = await fetch(`http://localhost:${TEST_PORT}/simple/query`);
-                        const parsedBody: IRequestValidationError = await res.json();
+                        const parsedBody = await res.json() as IRequestValidationError;
 
                         assert.strictEqual(res.status, 500, 'request with a missed required query param is not rejected (simple, without a custom error handler)');
                         assert.strictEqual('query' in parsedBody, true, 'response body does not contains a "query" field (simple, without a custom error handler)');
@@ -161,7 +161,7 @@ const server = app.listen(TEST_PORT, async () =>
 
                      ttt.test('invalid query', async () => {
                         const res = await fetch(`http://localhost:${TEST_PORT}/simple/query?name=xx`);
-                        const parsedBody: IRequestValidationError = await res.json();
+                        const parsedBody = await res.json() as IRequestValidationError;
 
                         assert.strictEqual(res.status, 500, 'request with an invalid query field is not rejected (simple, without a custom error handler)');
                         assert.strictEqual('query' in parsedBody, true, 'response body does not contains a "query" field (simple, without a custom error handler)');
@@ -214,7 +214,7 @@ const server = app.listen(TEST_PORT, async () =>
                   await Promise.all([
                      ttt.test('invalid params', async () => {
                         const res = await fetch(`http://localhost:${TEST_PORT}/simple/params/xx`);
-                        const parsedBody: IRequestValidationError = await res.json();
+                        const parsedBody = await res.json() as IRequestValidationError;
 
                         assert.strictEqual(res.status, 500, 'request with an invalid url pattern is not rejected (simple, without a custom error handler)');
                         assert.strictEqual('params' in parsedBody, true, 'response body does not contains a "params" field (simple, without a custom error handler)');
@@ -266,7 +266,7 @@ const server = app.listen(TEST_PORT, async () =>
                            },
                            body: JSON.stringify({}),
                         });
-                        const parsedBody: IRequestValidationError = await res.json();
+                        const parsedBody = await res.json() as IRequestValidationError;
 
                         assert.strictEqual(res.status, 500, 'request with a missed required body field is not rejected (simple, without a custom error handler)');
                         assert.strictEqual('body' in parsedBody, true, 'response body does not contains a "body" field (simple, without a custom error handler)');
@@ -281,7 +281,7 @@ const server = app.listen(TEST_PORT, async () =>
                            },
                            body: JSON.stringify({name: 5}),
                         });
-                        const parsedBody: IRequestValidationError = await res.json();
+                        const parsedBody = await res.json() as IRequestValidationError;
 
                         assert.strictEqual(res.status, 500, 'request with an incomplete body is not rejected (simple, without a custom error handler)');
                         assert.strictEqual('body' in parsedBody, true, 'response body does not contains a "body" field (simple, without a custom error handler)');
@@ -296,7 +296,7 @@ const server = app.listen(TEST_PORT, async () =>
                            },
                            body: '{"name: 5}',
                         });
-                        const parsedBody = await res.json();
+                        const parsedBody = await res.json() as {type: string} | undefined;
 
                         assert.strictEqual(res.status, 500, 'runtime error (broken json parsing) is not catched (simple, without a custom error handler)');
                         assert.strictEqual(parsedBody?.type, 'entity.parse.failed', 'response body does not contains an error description (simple, without a custom error handler)');
@@ -354,7 +354,7 @@ const server = app.listen(TEST_PORT, async () =>
                            },
                            body: '{"name: 5}',
                         });
-                        const parsedBody = await res.json();
+                        const parsedBody = await res.json() as {type: string} | undefined;
 
                         assert.strictEqual(res.status, 500, 'runtime error (broken json parsing) is not catched (simple, with a custom error handler)');
                         assert.strictEqual(parsedBody?.type, 'entity.parse.failed', 'response body does not contains an error description (simple, with a custom error handler)');
@@ -386,7 +386,7 @@ const server = app.listen(TEST_PORT, async () =>
                   await Promise.all([
                      ttt.test('missing a required query param (default)', async () => {
                         const res = await fetch(`http://localhost:${TEST_PORT}/default/query`);
-                        const parsedBody: IRequestValidationError = await res.json();
+                        const parsedBody = await res.json() as IRequestValidationError;
 
                         assert.strictEqual(res.status, 422, '(default) request with a missed required query param is not rejected');
                         assert.strictEqual('query' in parsedBody, true, '(default) response body does not contains a "query" field');
@@ -395,7 +395,7 @@ const server = app.listen(TEST_PORT, async () =>
 
                      ttt.test('invalid query (default)', async () => {
                         const res = await fetch(`http://localhost:${TEST_PORT}/default/query?name=xx`);
-                        const parsedBody: IRequestValidationError = await res.json();
+                        const parsedBody = await res.json() as IRequestValidationError;
 
                         assert.strictEqual(res.status, 422, '(default) request with an invalid query field is not rejected');
                         assert.strictEqual('query' in parsedBody, true, '(default) response body does not contains a "query" field');
@@ -442,7 +442,7 @@ const server = app.listen(TEST_PORT, async () =>
                            },
                            body: JSON.stringify({}),
                         });
-                        const parsedBody: IRequestValidationError = await res.json();
+                        const parsedBody = await res.json() as IRequestValidationError;
 
                         assert.strictEqual(res.status, 422, '(default) request with a missed required body field is not rejected');
                         assert.strictEqual('body' in parsedBody, true, '(default) response body does not contains a "body" field');
@@ -457,7 +457,7 @@ const server = app.listen(TEST_PORT, async () =>
                            },
                            body: JSON.stringify({name: 5}),
                         });
-                        const parsedBody: IRequestValidationError = await res.json();
+                        const parsedBody = await res.json() as IRequestValidationError;
 
                         assert.strictEqual(res.status, 422, '(default) request with an incomplete body is not rejected');
                         assert.strictEqual('body' in parsedBody, true, '(default) response body does not contains a "body" field');
@@ -472,7 +472,7 @@ const server = app.listen(TEST_PORT, async () =>
                            },
                            body: '{"name: 5}',
                         });
-                        const parsedBody = await res.json();
+                        const parsedBody = await res.json() as {type: string} | undefined;
 
                         assert.strictEqual(res.status, 500, '(default) runtime error (broken json parsing) is not catched');
                         assert.strictEqual(parsedBody?.type, 'entity.parse.failed', '(default) response body does not contains an error description');
@@ -511,7 +511,7 @@ const server = app.listen(TEST_PORT, async () =>
                            },
                            body: JSON.stringify({name: 'Jh'}),
                         });
-                        const parsedBody: IRequestValidationError = await res.json();
+                        const parsedBody = await res.json() as IRequestValidationError;
 
                         assert.strictEqual(res.status, 500, 'request with incorrect body and params is not rejected (user without anything)');
                         assert.strictEqual('body' in parsedBody, true, 'response body does not contains a "body" field (user without anything)');
@@ -528,7 +528,7 @@ const server = app.listen(TEST_PORT, async () =>
                            },
                            body: JSON.stringify({name: 'Jh'}),
                         });
-                        const parsedBody: IRequestValidationError = await res.json();
+                        const parsedBody = await res.json() as IRequestValidationError;
 
                         assert.strictEqual(res.status, 500, 'request with an incorrect body is not rejected (user without anything)');
                         assert.strictEqual('body' in parsedBody, true, 'response body does not contains a "body" field (user without anything)');
@@ -544,7 +544,7 @@ const server = app.listen(TEST_PORT, async () =>
                            },
                            body: JSON.stringify({name: 'Jhon'}),
                         });
-                        const parsedBody: IRequestValidationError = await res.json();
+                        const parsedBody = await res.json() as IRequestValidationError;
 
                         assert.strictEqual(res.status, 500, 'request with an incorrect params is not rejected (user without anything)');
                         assert.strictEqual('body' in parsedBody, false, 'response body does not contains a "body" field (user without anything)');
@@ -560,7 +560,7 @@ const server = app.listen(TEST_PORT, async () =>
                            },
                            body: '{"name: 5}',
                         });
-                        const parsedBody = await res.json();
+                        const parsedBody = await res.json() as {type: string} | undefined;
 
                         assert.strictEqual(res.status, 500, 'runtime error (broken json parsing) is not catched (user without anything)');
                         assert.strictEqual(parsedBody?.type, 'entity.parse.failed', 'response body does not contains an error description (user without anything)');
@@ -630,7 +630,7 @@ const server = app.listen(TEST_PORT, async () =>
                            },
                            body: '{"name: 5}',
                         });
-                        const parsedBody = await res.json();
+                        const parsedBody = await res.json() as {type: string} | undefined;
 
                         assert.strictEqual(res.status, 500, 'runtime error (broken json parsing) is not catched (custom error handler)');
                         assert.strictEqual(parsedBody?.type, 'entity.parse.failed', 'response body does not contains an error description (custom error handler)');
@@ -675,7 +675,7 @@ const server = app.listen(TEST_PORT, async () =>
                            },
                            body: JSON.stringify({name: 'Jh'}),
                         });
-                        const parsedBody: IRequestValidationError = await res.json();
+                        const parsedBody = await res.json() as IRequestValidationError;
 
                         assert.strictEqual(res.status, 422, 'user request with an incorrect body is not rejected (default error handler)');
                         assert.strictEqual('body' in parsedBody, true, '(default) response body does not contains a "body" field');
@@ -704,7 +704,7 @@ const server = app.listen(TEST_PORT, async () =>
                            },
                            body: '{"name: 5}',
                         });
-                        const parsedBody = await res.json();
+                        const parsedBody = await res.json() as {type: string} | undefined;
 
                         assert.strictEqual(res.status, 500, 'runtime error (broken json parsing) is not catched (default error handler)');
                         assert.strictEqual(parsedBody?.type, 'entity.parse.failed', 'response body does not contains an error description (default error handler)');
