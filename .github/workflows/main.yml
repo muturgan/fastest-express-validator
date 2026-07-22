@@ -55,6 +55,7 @@ jobs:
         color: ${{ env.COVERAGE_COLOR }}
         namedLogo: mocha
         logoColor: white
+        host: https://api.github.com
 
     - if: github.ref == 'refs/heads/master'
       name: Check published versions
