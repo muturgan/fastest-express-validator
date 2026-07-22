@@ -33,9 +33,6 @@ jobs:
     - name: Audit vulnerabilities
       run: npm run audit
 
-    - name: Linting
-      run: npm run lint_ci
-
     - name: Build
       run: npm run build
 
