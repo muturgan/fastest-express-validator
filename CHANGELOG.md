@@ -1,5 +1,11 @@
 # Changelog
 
+### 2.0.5
+
+#### Docs
+
+- A `HoC` badge link updated
+
 ### 2.0.4
 
 #### Chore
