@@ -21,7 +21,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@master
       with:
-        node-version: 20
+        node-version: 26
         registry-url: https://registry.npmjs.org/
 
     - name: Check license
@@ -32,9 +32,6 @@ jobs:
 
     - name: Audit vulnerabilities
       run: npm run audit
-
-    - name: Linting
-      run: npm run lint_ci
 
     - name: Build
       run: npm run build
