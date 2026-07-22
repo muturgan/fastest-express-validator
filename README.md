@@ -5,20 +5,37 @@
 ![Coverage Badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/muturgan/c7b1c29d6e20c66c9c38971617b3865c/raw/fev_coverage.json)
 ![License Badge](https://img.shields.io/npm/l/fastest-express-validator)
 
-request validation middleware for [express][express]
-based on [fastest-validator][fastest-validator] (testted with both express v4 and v5)
+Request validation middleware for [express][express]
+based on [fastest-validator][fastest-validator] (tested with both express v4 and v5).
+
+Supports both CommonJS (`require`) and ES modules (`import`).
 
 [express]: https://expressjs.com
 [fastest-validator]: https://github.com/icebob/fastest-validator
 
-## Example
+## CommonJS
 ``` js
-const app = require('express')();
+const express = require('express');
 const {
     RequestValidator,
     QueryValidator,
     DefaultRequestValidator,
 } = require('fastest-express-validator');
+```
+
+## ES Modules
+``` js
+import express from 'express';
+import {
+    RequestValidator,
+    QueryValidator,
+    DefaultRequestValidator,
+} from 'fastest-express-validator';
+```
+
+## Example
+``` js
+const app = express();
 
 const querySchema = {
     name: { type: "string", min: 3, max: 255 },
@@ -31,7 +48,7 @@ const customErrorHandler = (err, req, res, next) => {
 }
 
 const validationMiddleware = RequestValidator({
-    // also you can pass the "body" and "params" fields
+    // you can also pass the "body" and "params" fields
     query: querySchema,
 });
 
@@ -45,17 +62,17 @@ const fastMiddleware = RequestValidator(
     null, // define a custom error handler if you want to
 
     /* you can pass some options for a fastest-validator instance
-    it should implements a ValidatorConstructorOptions interface
-    note that this package set a "useNewCustomCheckerFunction" option in true by default
-    so you should override it to use a v1 syntax for built-in rules */
+    it should implement the ValidatorConstructorOptions interface
+    note that this package sets the "useNewCustomCheckerFunction" option to True by default
+    so you should override it to use the v1 syntax for built-in rules */
     { haltOnFirstError: true }
 );
 
-// also this package provides BodyValidator and ParamsValidator short validators
+// this package also provides BodyValidator and ParamsValidator short validators
 const shortQueryMiddleware = QueryValidator(
     querySchema,
-    // also you can pass a custom error handler in a second argument,
-    // also you can pass a ValidatorConstructorOptions in a third argument
+    // you can also pass a custom error handler as the second argument,
+    // and a ValidatorConstructorOptions as the third argument
 );
 
 app.get('/', validationMiddleware, (req, res) => {
@@ -82,9 +99,9 @@ app.get('/short', shortQueryMiddleware, (req, res) => {
     res.send('Hello Short');
 });
 
-// This middleware already have a default validation error handling behaviour -
-// send 404 on params validation error
-// and 422 (with error details at response body) on query and body validation error.
+// This middleware already has a default validation error handling behaviour —
+// sends a 404 on params validation errors
+// and 422 (with error details in the response body) on query and body validation errors.
 const defaultQueryValidationMiddleware = DefaultRequestValidator(
     { query: schema /* body, params */ },
     // you can pass a ValidatorConstructorOptions here
@@ -101,5 +118,5 @@ app.use((err, req, res, next) => {
     res.status(500).send('Something broke!');
 });
 
-app.listen(2023, () => console.log('check it on http://localhost:2023?name=one'));
+app.listen(2026, () => console.log('check it on http://localhost:2026?name=one'));
 ```

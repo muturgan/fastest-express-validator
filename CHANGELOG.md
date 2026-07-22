@@ -1,10 +1,16 @@
 # Changelog
 
+### 2.0.6
+
+#### Docs
+
+- Readme updated
+
 ### 2.0.5
 
 #### Docs
 
-- A `HoC` badge link updated
+- `HoC` badge link updated
 
 ### 2.0.4
 
@@ -16,13 +22,13 @@
 
 #### Docs
 
-- Added an excluding param to a HoC calculation link
+- Added an excluding param to the HoC calculation link
 
 ### 2.0.2
 
 #### Chore
 
-- Publishing the package with a zopfli archver
+- Publishing the package with zopfli archiver
 
 ### 2.0.1
 
@@ -48,13 +54,13 @@
 
 #### Chore
 
-- Example from readme covered with test
+- Example from readme covered with tests
 
 ### 1.9.3
 
 #### Fixed
 
-- do not use a broken fastest-validator option in my readme
+- do not use a broken fastest-validator option in the readme
 
 ### 1.9.2
 
@@ -90,13 +96,13 @@
 
 #### Chore
 
-- a cjs bundle minimized even more
+- the cjs bundle was minimized even more
 
 ### 1.7.2
 
 #### Chore
 
-- a cjs bundle minimized
+- the cjs bundle was minimized
 
 ### 1.7.0
 
