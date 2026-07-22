@@ -45,7 +45,7 @@ jobs:
         echo "COVERAGE_COLOR=$(node tools/get_coverage_color.cjs)" >> $GITHUB_ENV
 
     - name: Create Coverage Badge
-      uses: schneegans/dynamic-badges-action@v1.0.0
+      uses: schneegans/dynamic-badges-action@v1.8.0
       with:
         auth: ${{ secrets.GIST_SECRET }}
         gistID: ${{ secrets.GIST_ID }}
